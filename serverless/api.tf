@@ -12,7 +12,7 @@ resource "aws_apigatewayv2_integration" "api" {
 
 resource "aws_apigatewayv2_route" "api" {
     api_id = aws_apigatewayv2_api.api.id
-    route_key = "$default" //"ANY /send"
+    route_key = "$default"
     target = "integrations/${aws_apigatewayv2_integration.api.id}"
 }
 
