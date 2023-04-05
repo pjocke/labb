@@ -18,8 +18,8 @@ resource "aws_lambda_function" "receive" {
 }
 
 resource "aws_lambda_event_source_mapping" "receive" {
-  event_source_arn = aws_sqs_queue.q.arn
-  function_name    = aws_lambda_function.receive.arn
+  event_source_arn        = aws_sqs_queue.q.arn
+  function_name           = aws_lambda_function.receive.arn
   function_response_types = ["ReportBatchItemFailures"]
 }
 
@@ -41,7 +41,7 @@ resource "aws_lambda_function" "send" {
 }
 
 resource "aws_lambda_permission" "api" {
-  action = "lambda:InvokeFunction"
+  action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.send.function_name
-  principal = "apigateway.amazonaws.com"
+  principal     = "apigateway.amazonaws.com"
 }
