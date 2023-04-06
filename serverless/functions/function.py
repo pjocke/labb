@@ -11,8 +11,11 @@ client = boto3.client('sqs')
 def send_handler(event, context):
     if event:
         body = {}
-        if "body" in event and ("isBase64Encoded" in event and event["isBase64Encoded"] == True):
-            body = json.loads(b64decode(event["body"]).decode("ASCII"))
+        if "body" in event: 
+            if ("isBase64Encoded" in event and event["isBase64Encoded"] == True):
+                body = json.loads(b64decode(event["body"]).decode("ASCII"))
+            else:
+                body = json.loads(event["body"])
         
         body["timestamp"] = datetime.now(tz=dateutil.tz.gettz("Europe/Stockholm")).strftime("%Y-%m-%d %H:%M:%S")
 
