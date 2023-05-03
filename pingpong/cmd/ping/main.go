@@ -11,6 +11,10 @@ import (
 
 var backend string
 
+func healthz(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(200)
+}
+
 func ping(w http.ResponseWriter, r *http.Request) {
 	res, err := http.Get(fmt.Sprintf("http://%s/pong", backend))
 	if err != nil {
@@ -34,6 +38,7 @@ func main() {
 		os.Exit(1)
 	}
 
+	http.HandleFunc("/healthz", healthz)
 	http.HandleFunc("/ping", ping)
 
 	err := http.ListenAndServe(":8080", nil)
