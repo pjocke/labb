@@ -102,7 +102,7 @@ resource "google_container_node_pool" "maria" {
 resource "google_project_iam_member" "maria" {
   project = var.project
   role    = "roles/container.admin"
-  member  = "user:maria.franz@knowit.se"
+  member  = "user:maria.franz@hotmail.com"
 }
 
 resource "google_container_cluster" "tomas" {
