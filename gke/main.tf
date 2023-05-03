@@ -99,6 +99,12 @@ resource "google_container_node_pool" "maria" {
   }
 }
 
+resource "google_project_iam_member" "maria" {
+  project = var.project
+  role    = "roles/container.admin"
+  member  = "user:maria.franz@knowit.se"
+}
+
 resource "google_container_cluster" "tomas" {
   name     = "tomas"
   location = data.google_compute_zones.available.names.0
@@ -133,6 +139,12 @@ resource "google_container_node_pool" "tomas" {
   }
 }
 
+resource "google_project_iam_member" "tomas" {
+  project = var.project
+  role    = "roles/container.admin"
+  member  = "user:tomas.voulgaris@knowit.se"
+}
+
 resource "google_container_cluster" "joakim" {
   name     = "joakim"
   location = data.google_compute_zones.available.names.0
@@ -165,4 +177,10 @@ resource "google_container_node_pool" "joakim" {
       "https://www.googleapis.com/auth/cloud-platform"
     ]
   }
+}
+
+resource "google_project_iam_member" "joakim" {
+  project = var.project
+  role    = "roles/container.admin"
+  member  = "user:joakim.bomelin@knowit.se"
 }
