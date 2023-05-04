@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ping
+  namespace: pingpong
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    cert-manager.io/cluster-issuer: "le-http"
+spec:
+  ingressClassName: traefik
+  tls:
+    - hosts:
+        - joakim-web.knowitlia.cloud
+      secretName: joakim-web-knowitlia-cert
+  rules:
+    - host: joakim-web.knowitlia.cloud
+      http:
+        paths:
+          - path: /ping
+            pathType: Exact
+            backend:
+              service:
+                name:  ping
+                port:
+                  number: 8080
