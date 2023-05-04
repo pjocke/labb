@@ -28,3 +28,13 @@ resource "google_dns_record_set" "joakim" {
 
   rrdatas = [google_compute_address.joakim[each.key].address]
 }
+
+resource "google_dns_record_set" "maria" {
+  name = "maria-web2.${google_dns_managed_zone.knowitlia_cloud.dns_name}"
+  type = "A"
+  ttl  = 300
+
+  managed_zone = google_dns_managed_zone.knowitlia_cloud.name
+
+  rrdatas = ["35.228.223.190"]
+}
