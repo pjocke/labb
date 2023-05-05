@@ -4,7 +4,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"os"
 )
@@ -22,7 +21,7 @@ func ping(w http.ResponseWriter, r *http.Request) {
 		io.WriteString(w, err.Error())
 		return
 	}
-	tmp, err := ioutil.ReadAll(res.Body)
+	tmp, err := io.ReadAll(res.Body)
 	if err != nil {
 		w.WriteHeader(500)
 		io.WriteString(w, err.Error())
