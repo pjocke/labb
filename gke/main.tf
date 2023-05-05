@@ -1,3 +1,5 @@
+data "google_project" "project" {}
+
 resource "google_compute_network" "primary" {
   name                    = "primary"
   auto_create_subnetworks = false
@@ -157,6 +159,10 @@ resource "google_container_cluster" "joakim" {
 
   networking_mode = "VPC_NATIVE"
 
+  workload_identity_config {
+    workload_pool = "${data.google_project.project.project_id}.svc.id.goog"
+  }
+
   ip_allocation_policy {
     cluster_secondary_range_name  = google_compute_subnetwork.joakim.secondary_ip_range[0].range_name
     services_secondary_range_name = google_compute_subnetwork.joakim.secondary_ip_range[1].range_name
@@ -176,6 +182,10 @@ resource "google_container_node_pool" "joakim" {
     oauth_scopes = [
       "https://www.googleapis.com/auth/cloud-platform"
     ]
+
+    workload_metadata_config {
+      mode = "GKE_METADATA"
+    }
   }
 }
 
